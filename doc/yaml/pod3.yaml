@@ -1,7 +1,7 @@
 apiVersion: kubeshare.nthu/v1
 kind: SharePod
 metadata:
-  name: pod4
+  name: pod3
   annotations:
     "kubeshare/gpu_request": "0.5"
     "kubeshare/gpu_limit": "0.5"
@@ -11,5 +11,5 @@ spec:
   containers:
   - name: tf
     image: guswns531/jobs:matrix-001
-    command: ['./matrix', '2048', '4000']
+    command: ['./matrix', '2048', '2000']
   restartPolicy: OnFailure
