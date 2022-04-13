@@ -480,7 +480,7 @@ func newPod(sharepod *kubesharev1.SharePod, isGPUPod bool, podManagerIP string, 
 	if isGPUPod {
 		// specCopy.Containers = append(specCopy.Containers, corev1.Container{
 		// 	Name:    "podmanager",
-		// 	Image:   "ncy9371/debian:stretch-slim-wget",
+		// 	Image:   "guswns531/debian:stretch-slim-wget",
 		// 	Command: []string{"sh", "-c", "wget -qO /pod_manager 140.114.78.229/web/pod_manager && chmod +x /pod_manager && SCHEDULER_IP=$(cat " + SchedulerIpPath + ") /pod_manager"},
 		// })
 		for i := range specCopy.Containers {
@@ -497,6 +497,10 @@ func newPod(sharepod *kubesharev1.SharePod, isGPUPod bool, podManagerIP string, 
 				corev1.EnvVar{
 					Name:  "LD_PRELOAD",
 					Value: KubeShareLibraryPath + "/libgemhook.so.1",
+				},
+				corev1.EnvVar{
+					Name:  "LD_LIBRARY_PATH",
+					Value: KubeShareLibraryPath + ":$LD_LIBRARY_PATH",
 				},
 				corev1.EnvVar{
 					Name:  "POD_MANAGER_IP",
