@@ -9,7 +9,7 @@ RUN apt update && \
     apt install -y git && \
     git clone https://github.com/guswns531/Gemini.git && cd Gemini && \
     sh install.sh && \
-    export DEBUG=1 && \
+    # export DEBUG=1 && \
     make -C src
 
 # FROM busybox:1.31.1-glibc
