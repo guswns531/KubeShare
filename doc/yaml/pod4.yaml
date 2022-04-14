@@ -10,6 +10,7 @@ spec:
   terminationGracePeriodSeconds: 0
   containers:
   - name: tf
-    image: guswns531/jobs:matrix-001
-    command: ['./matrix', '2048', '4000']
+    image: guswns531/jobs:matrix-002
+    command: ['sleep', '4000']
+    # command: ['LD_PRELOAD=/kubeshare/library/libgemhook.so.1', './matrix', '2048', '4000']
   restartPolicy: OnFailure

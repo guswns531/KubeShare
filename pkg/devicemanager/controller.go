@@ -503,6 +503,14 @@ func newPod(sharepod *kubesharev1.SharePod, isGPUPod bool, podManagerIP string, 
 					Value: KubeShareLibraryPath + ":$LD_LIBRARY_PATH",
 				},
 				corev1.EnvVar{
+					Name:  "GEMINI_IPC_DIR",
+					Value: "/kubeshare/scheduler/podmanagerport/",
+				},
+				corev1.EnvVar{
+					Name:  "GEMINI_GROUP_NAME",
+					Value: fmt.Sprintf("%s", sharepod.ObjectMeta.Name),
+				},
+				corev1.EnvVar{
 					Name:  "POD_MANAGER_IP",
 					Value: podManagerIP,
 				},
@@ -521,6 +529,12 @@ func newPod(sharepod *kubesharev1.SharePod, isGPUPod bool, podManagerIP string, 
 					MountPath: KubeShareLibraryPath,
 				},
 			)
+			c.VolumeMounts = append(c.VolumeMounts,
+				corev1.VolumeMount{
+					Name:      "kubeshare-ipc",
+					MountPath: "/kubeshare/scheduler/podmanagerport/",
+				},
+			)
 		}
 		specCopy.Volumes = append(specCopy.Volumes,
 			corev1.Volume{
@@ -532,6 +546,17 @@ func newPod(sharepod *kubesharev1.SharePod, isGPUPod bool, podManagerIP string, 
 				},
 			},
 		)
+		specCopy.Volumes = append(specCopy.Volumes,
+			corev1.Volume{
+				Name: "kubeshare-ipc",
+				VolumeSource: corev1.VolumeSource{
+					HostPath: &corev1.HostPathVolumeSource{
+						Path: "/kubeshare/scheduler/podmanagerport/",
+					},
+				},
+			},
+		)
+
 		annotationCopy[kubesharev1.KubeShareResourceGPURequest] = sharepod.ObjectMeta.Annotations[kubesharev1.KubeShareResourceGPURequest]
 		annotationCopy[kubesharev1.KubeShareResourceGPULimit] = sharepod.ObjectMeta.Annotations[kubesharev1.KubeShareResourceGPULimit]
 		annotationCopy[kubesharev1.KubeShareResourceGPUMemory] = sharepod.ObjectMeta.Annotations[kubesharev1.KubeShareResourceGPUMemory]

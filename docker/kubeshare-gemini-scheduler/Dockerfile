@@ -1,7 +1,7 @@
 # call from repo root
 
 #FROM nvidia/cuda:10.0-devel AS build
-FROM nvidia/cuda:11.5.1-devel-ubuntu20.04 AS build
+FROM nvidia/cuda:11.2.2-devel AS build
 
 WORKDIR /tmp/build
 
@@ -34,7 +34,7 @@ COPY docker/lib/libsodium.so.23   /lib
 COPY docker/lib/libzmq.so.5   /lib
 
 COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher-multigpus.sh /launcher-multigpus.sh
-COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher.py /launcher.py
+# COPY --from=build /tmp/build/kubeshare/docker/kubeshare-gemini-scheduler/launcher.py /launcher.py
 COPY --from=build /tmp/build/Gemini/bin/gem-schd /gem-schd
 # COPY --from=build /tmp/build/Gemini/bin/gem-pmgr /gem-pmgr
 

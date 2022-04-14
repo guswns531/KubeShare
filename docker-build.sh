@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER=test3
+VER=test-04141757
 
 docker build -t guswns531/kubeshare-config-client:$VER -f ./docker/kubeshare-config-client/Dockerfile . &&  docker push guswns531/kubeshare-config-client:$VER
 docker build -t guswns531/kubeshare-gemini-hook-init:$VER -f ./docker/kubeshare-gemini-hook-init/Dockerfile . &&  docker push guswns531/kubeshare-gemini-hook-init:$VER

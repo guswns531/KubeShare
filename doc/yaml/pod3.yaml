@@ -10,6 +10,6 @@ spec:
   terminationGracePeriodSeconds: 0
   containers:
   - name: tf
-    image: guswns531/jobs:matrix-001
+    image: guswns531/jobs:matrix-002
     command: ['./matrix', '2048', '2000']
   restartPolicy: OnFailure
